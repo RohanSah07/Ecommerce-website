@@ -52,7 +52,7 @@ function removeQty(div){
     let size=div.children[3].innerText;
 
     in_cart.forEach(item=>{
-        if(item.name===name && item.size===size){
+        if(item.name===name && item.size===size && item.qty>=2){
             item.qty--;
         }
     })
@@ -100,8 +100,16 @@ function render(){
         cartContent.appendChild(child);
         price=price+parseInt(in_cart[i].price*in_cart[i].qty);
     }
-    totalPrice.innerText="$"+price;
+    totalPrice.innerText="₹"+price;
     console.log("New forloop It is rendered");
+
+    const button = document.querySelector('.btn-buy')
+    if(in_cart.length>=1){
+        button.disabled=false;
+    }
+    else{
+        button.disabled=true;
+    }
 }
 
 function add_product(image_path,parameter_title,parameter_price,parametere_qty,parameter_size){
@@ -124,7 +132,7 @@ function add_product(image_path,parameter_title,parameter_price,parametere_qty,p
 
     var price=document.createElement("div");
     price.classList.add("cart-price");
-    price.innerText="$"+parameter_price;
+    price.innerText="₹"+parameter_price;
     detailBox.appendChild(price);
 
     var divQty=document.createElement("div");
@@ -161,6 +169,7 @@ function add_product(image_path,parameter_title,parameter_price,parametere_qty,p
     detailBox.appendChild(dabba);
 
     return cartBox;
+
 }
 
 
